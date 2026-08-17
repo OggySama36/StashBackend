@@ -1,0 +1,28 @@
+# Binary
+/bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Build output
+dist/
+
+# Environment
+.env
+.env.local
+.env.production
+
+# IDE
+.vscode/
+.idea/
+*.suo
+
+# Mac
+.DS_Store
+
+# Go specific
+vendor/
+*.test
+*.out
