@@ -3,75 +3,74 @@
 Go Gin + Supabase
 
 ## Run local
+
+```bash
 cp .env.example .env
-go run cmd/server/main.go
+go run server/main.go
+```
 
 ## Environment variables
+
+```
 SUPABASE_URL=
 SUPABASE_SECRET_KEY=
 PORT=8080
+APPLICATION_PASSWORD=
+HOST_EMAIL=
+SMTP_HOST=
+CLOUDINARY_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_SECRET_KEY=
+```
 
-## Project Tree 
+## Project Tree
+
+```
 backend/
 ├── server/
-│   └── main.go                  # Entrypoint
-│             
+│   └── main.go                      # Entrypoint
 │
 ├── config/
-│   └── config.go                # Load env, Supabase, Cloudinary config
+│   ├── config.go                    # Load env config
+│   └── supabase-connection.go       # Supabase client connection
 │
 ├── internal/
-│   ├── domain/                  # Entities thuần (không phụ thuộc framework)
-│   │   ├── file.go
-│   │   ├── folder.go
-│   │   └── user.go
-│   │
-│   ├── dto/                     # Request/Response structs
-│   │   ├── file_dto.go
-│   │   ├── folder_dto.go
-│   │   └── auth_dto.go
-│   │
-│   ├── repository/              # Tương tác DB (Supabase/PostgreSQL)
-│   │   ├── interface.go         # Định nghĩa interface
-│   │   ├── file_repo.go
-│   │   ├── folder_repo.go
-│   │   └── user_repo.go
-│   │
-│   ├── service/                 # Business logic
-│   │   ├── file_service.go
-│   │   ├── folder_service.go
-│   │   ├── auth_service.go
-│   │   └── share_service.go
-│   │
-│   ├── handler/                 # HTTP Handlers (controller)
-│   │   ├── file_handler.go
-│   │   ├── folder_handler.go
-│   │   ├── auth_handler.go
-│   │   └── share_handler.go
+│   ├── handler/                     # HTTP Handlers (controller)
+│   │   ├── handle_account.go
+│   │   ├── handle_document.go
+│   │   ├── handle_find.go
+│   │   ├── handle_path.go
+│   │   └── handle_usage_bucket.go
 │   │
 │   ├── middleware/
-│   │   ├── auth.go              # JWT verify (Supabase JWT)
-│   │   ├── cors.go
-│   │   ├── ratelimit.go
-│   │   └── logger.go
+│   │   ├── auth_jwt.go              # JWT verify (Supabase JWT)
+│   │   └── set_jwt.go
 │   │
-│   ├── pkg/
-│   │   ├── cloudinary/          # Cloudinary wrapper
-│   │   │   └── cloudinary.go
-│   │   ├── supabase/            # Supabase client
-│   │   │   └── client.go
-│   │   └── response/            # Chuẩn hóa JSON response
-│   │       └── response.go
+│   ├── repository/                  # Tương tác DB (Supabase/PostgreSQL)
+│   │   ├── bucket_usage.go
+│   │   ├── file_repo.go
+│   │   ├── folder_repo.go
+│   │   ├── get_path.go
+│   │   ├── star_repo.go
+│   │   └── trash_repo.go
 │   │
-│   └── router/
-│       └── router.go            # Đăng ký routes + middleware
-│
-├── migrations/                  # SQL migration files
-│   ├── 001_create_users.sql
-│   ├── 002_create_folders.sql
-│   └── 003_create_files.sql
+│   ├── router/
+│   │   └── router.go                # Đăng ký routes + middleware
+│   │
+│   └── services/                    # Business logic
+│       ├── account_service.go
+│       ├── create_url.go
+│       ├── file_service.go
+│       ├── find_service.go
+│       ├── folder_service.go
+│       ├── login.go
+│       ├── password_service.go
+│       ├── register.go
+│       └── share_service.go
 │
 ├── .env
 ├── .env.example
+├── .gitignore
 ├── go.mod
-└── Dockerfile
+└── go.sum
+```
