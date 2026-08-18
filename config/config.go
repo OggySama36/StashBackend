@@ -3,6 +3,7 @@ package config
 import "os"
 
 type Config struct {
+	AllowedOrigins      string
 	SupabaseURL         string
 	SupabaseKey         string
 	Port                string
@@ -17,6 +18,7 @@ type Config struct {
 var App = &Config{}
 
 func Load() {
+	App.AllowedOrigins = os.Getenv("ALLOWED_ORIGINS")
 	App.SupabaseURL = os.Getenv("SUPABASE_URL")
 	App.SupabaseKey = os.Getenv("SUPABASE_SECRET_KEY")
 	App.ApplicationPwd = os.Getenv("APPLICATION_PASSWORD")

@@ -1,8 +1,10 @@
 package router
 
 import (
+	"Stash/config"
 	handle "Stash/internal/handler"
 	"Stash/internal/middleware"
+	"strings"
 
 	"time"
 
@@ -13,7 +15,7 @@ import (
 func SetupRoutes() *gin.Engine {
 	engine := gin.Default()
 	engine.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:5173"},
+		AllowOrigins:     strings.Split(config.App.AllowedOrigins, ","),
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"},
 		ExposeHeaders:    []string{"Content-Length"},
